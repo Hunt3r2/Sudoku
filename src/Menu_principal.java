@@ -47,6 +47,7 @@ public class Menu_principal extends JFrame {
 	 * Create the frame.
 	 */
 	public Menu_principal() {
+		setResizable(false);
 		setTitle("SUDOKU");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Menu_principal.class.getResource("/Imagenes/nicolas-cage-biografia-fotos.jpg")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -73,7 +74,7 @@ public class Menu_principal extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("SUDOKU");
 		panel.add(lblNewLabel);
-		lblNewLabel.setForeground(new Color(255, 255, 0));
+		lblNewLabel.setForeground(Color.ORANGE);
 		lblNewLabel.setBackground(new Color(255, 255, 0));
 		lblNewLabel.setFont(new Font("Tahoma", Font.ITALIC, 27));
 		

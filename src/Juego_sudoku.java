@@ -61,8 +61,8 @@ public class Juego_sudoku extends JDialog {
 		
 		
 		
-		for (int i = 0; i < 9; i++) { // i es el índice de fila
-		    for (int j = 0; j < 9; j++) { // j es el índice de columna
+		for (int i = 0; i < 9; i++) { 	
+		    for (int j = 0; j < 9; j++) { 	
 		        JTextField casilla = new JTextField("");
 		        casilla.setHorizontalAlignment(SwingConstants.CENTER);
 				casilla.setForeground(Color.RED);
