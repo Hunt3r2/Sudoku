@@ -87,8 +87,25 @@ public class Menu_principal extends JFrame {
 		JButton btnNewButton = new JButton("Empezar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				juego_sudoku = new Juego_sudoku(null);
+				juego_sudoku = new Juego_sudoku(null, 0);
+				String dificultad = ((String) comboBox.getSelectedItem()).toLowerCase();
+
+				switch (dificultad) {
+			    case "facil":
+			        System.out.println("Seleccionaste fácil");
+			        juego_sudoku.setDificultad(1);
+			        break;
+			    case "medio":
+			        System.out.println("Seleccionaste medio");
+			        juego_sudoku.setDificultad(2);
+			        break;
+			    case "dificil":
+			        System.out.println("Seleccionaste difícil");
+			        juego_sudoku.setDificultad(3);
+			        break;
+			}
+
+
 				juego_sudoku.iniciarJuego();
 				
 			}
