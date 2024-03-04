@@ -2,8 +2,9 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.Random;
-
 import javax.swing.BorderFactory;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -12,6 +13,10 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
 
 public class Juego_sudoku extends JDialog {
 
@@ -88,8 +93,24 @@ public class Juego_sudoku extends JDialog {
 		        casilla.setBackground(Color.WHITE);
 		        panelJuego.add(casilla);
 		        tablero[i][j] = casilla;
-		    }
-		}
+		        
+		        casilla.addKeyListener(new KeyAdapter() {
+                    
+                    public void keyTyped(KeyEvent e) {
+                        char numero = e.getKeyChar();
+                        if (!(Character.isDigit(numero) && numero >= '1' && numero <= '9')) {
+                            e.consume();
+                            Toolkit.getDefaultToolkit().beep();
+                        }
+                        if (casilla.getText().length() >= 1) {
+                            e.consume();
+                            Toolkit.getDefaultToolkit().beep();
+                        }
+                    }
+                });
+            }
+        }
+		      
 		
 		switch (dificultad) {
 		case 1:
@@ -97,11 +118,11 @@ public class Juego_sudoku extends JDialog {
 			System.out.println("facil");
 			break;
 		case 2:
-			generarTableroDificil();
+			generarTableroMedio();
 			System.out.println("medio");
 			break;
 		case 3:
-			generarTableroMedio();
+			generarTableroDificil();
 			System.out.println("dificil");
 			break;		
 		}
@@ -109,70 +130,20 @@ public class Juego_sudoku extends JDialog {
 	}
 	
 	public void generarTableroFacil() {
-	    // Primero, generamos un tablero de Sudoku completamente resuelto
-	    // Puedes usar cualquier algoritmo que prefieras para esto
-	    generarTablero();
-
-	    // Luego, creamos un objeto Random para seleccionar las celdas a vaciar
-	    Random rand = new Random();
-
-	    // Vaciamos 30 celdas al azar
-	    for (int i = 0; i < 30; i++) {
-	        int fila, columna;
-	        do {
-	            fila = rand.nextInt(9);
-	            columna = rand.nextInt(9);
-	        } while (tablero[fila][columna].getText().equals(""));
-
-	        // Vaciamos la celda
-	        tablero[fila][columna].setText("");
-	    }
+	    generarTablero(30); 
 	}
-	
+
 	public void generarTableroMedio() {
-	    // Primero, generamos un tablero de Sudoku completamente resuelto
-	    // Puedes usar cualquier algoritmo que prefieras para esto
-	    generarTablero();
-
-	    // Luego, creamos un objeto Random para seleccionar las celdas a vaciar
-	    Random rand = new Random();
-
-	    // Vaciamos 30 celdas al azar
-	    for (int i = 0; i < 40; i++) {
-	        int fila, columna;
-	        do {
-	            fila = rand.nextInt(9);
-	            columna = rand.nextInt(9);
-	        } while (tablero[fila][columna].getText().equals(""));
-
-	        // Vaciamos la celda
-	        tablero[fila][columna].setText("");
-	    }
+	    generarTablero(40); 
 	}
-	
+
 	public void generarTableroDificil() {
-	    // Primero, generamos un tablero de Sudoku completamente resuelto
-	    // Puedes usar cualquier algoritmo que prefieras para esto
-	    generarTablero();
-
-	    // Luego, creamos un objeto Random para seleccionar las celdas a vaciar
-	    Random rand = new Random();
-
-	    // Vaciamos 30 celdas al azar
-	    for (int i = 0; i < 50; i++) {
-	        int fila, columna;
-	        do {
-	            fila = rand.nextInt(9);
-	            columna = rand.nextInt(9);
-	        } while (tablero[fila][columna].getText().equals(""));
-
-	        // Vaciamos la celda
-	        tablero[fila][columna].setText("");
-	    }
+	    generarTablero(50); 
 	}
-	
-	public void generarTablero() {
 
+
+	
+	public void generarTablero(int celdasVacias) {
 	    int[][] tableroResuelto = {
 	        {5, 3, 4, 6, 7, 8, 9, 1, 2},
 	        {6, 7, 2, 1, 9, 5, 3, 4, 8},
@@ -185,13 +156,32 @@ public class Juego_sudoku extends JDialog {
 	        {3, 4, 5, 2, 8, 6, 1, 7, 9}
 	    };
 
-	    // Llenamos el tablero de la interfaz gráfica con los números del tablero resuelto
+	    Random rand_celdas = new Random();
+
 	    for (int i = 0; i < 9; i++) {
 	        for (int j = 0; j < 9; j++) {
 	            tablero[i][j].setText(String.valueOf(tableroResuelto[i][j]));
+
+
+	            if (tableroResuelto[i][j] != 0) {
+	                tablero[i][j].setEditable(false);
+	            }
 	        }
 	    }
+
+	    for (int i = 0; i < celdasVacias; i++) {
+	        int fila, columna;
+	        do {
+	            fila = rand_celdas.nextInt(9);
+	            columna = rand_celdas.nextInt(9);
+	        } while (tablero[fila][columna].getText().equals(""));
+	        
+	        tablero[fila][columna].setText("");
+
+	        tablero[fila][columna].setEditable(true);
+	    }
 	}
+
 
 
 	
