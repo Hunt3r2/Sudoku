@@ -41,6 +41,7 @@ public class Juego_sudoku extends JDialog {
                 try {
                     Juego_sudoku frame = new Juego_sudoku(null, dificultad);
                     frame.setVisible(true);
+                    generarTablero(dificultad);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -78,14 +79,12 @@ public class Juego_sudoku extends JDialog {
                     public void keyTyped(KeyEvent e) {
                         char numero = e.getKeyChar();
 
-                        if (!(Character.isDigit(numero)  && numero >= '1' && numero <= '9')) {
-                        	e.consume();
-                        	Toolkit.getDefaultToolkit().beep();
+                        if (!(Character.isDigit(numero) && numero >= '1' && numero <= '9')) {
+                            e.consume();
+                        }
 
-                            if ((casilla.getText().length() == 1)) {
-                            	e.consume();
-                            	Toolkit.getDefaultToolkit().beep();
-                            }
+                        if (casilla.getText().length() == 1) {
+                            e.consume();
                         }
                     }
                 });
@@ -212,7 +211,7 @@ public class Juego_sudoku extends JDialog {
             boolean[] existentes = new boolean[9];
             for (int j = 0; j < 9; j++) {
                 String valor = tablero[i][j].getText();
-                if (!valor.isEmpty() && !existentes[Integer.parseInt(valor) - 1]) {
+                if (!valor.isEmpty() && !existentes[Integer.parseInt(valor) - 	1]) {
                     existentes[Integer.parseInt(valor) - 1] = true;
                 } else {
                     return false; // Número duplicado en la fila
