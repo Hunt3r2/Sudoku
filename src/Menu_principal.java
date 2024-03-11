@@ -72,6 +72,7 @@ public class Menu_principal extends JFrame {
         contentPane.add(comboBox);
 
         JButton btnNewButton = new JButton("Empezar");
+        btnNewButton.setFocusable(false);
         btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 juego_sudoku = new Juego_sudoku(null, 0);
@@ -98,9 +99,9 @@ public class Menu_principal extends JFrame {
         btnNewButton.setBounds(179, 81, 89, 23);
         contentPane.add(btnNewButton);
 
-        JLabel lblNewLabel_1 = new JLabel("");
-        lblNewLabel_1.setIcon(new ImageIcon(Menu_principal.class.getResource("/Imagenes/prisoners-of-the-ghostland_output.png")));
-        lblNewLabel_1.setBounds(0, 0, 434, 261);
-        contentPane.add(lblNewLabel_1);
+        JLabel lblFondoPrincipal = new JLabel("");
+        lblFondoPrincipal.setIcon(new ImageIcon(Menu_principal.class.getResource("/Imagenes/prisoners-of-the-ghostland_output.png")));
+        lblFondoPrincipal.setBounds(0, 0, 434, 261);
+        contentPane.add(lblFondoPrincipal);
     }
 }

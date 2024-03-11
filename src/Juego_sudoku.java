@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -19,6 +20,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.util.Random;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
 
 public class Juego_sudoku extends JDialog {
 
@@ -65,9 +68,46 @@ public class Juego_sudoku extends JDialog {
         JPanel panelJuego = new JPanel();
         panelJuego.setBackground(new Color(224, 255, 255));
         panelJuego.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+        panelJuego.setBorder(new LineBorder(Color.CYAN, 10));
         panelJuego.setBounds(219, 47, 641, 589);
         contentPane.add(panelJuego);
         panelJuego.setLayout(new GridLayout(9, 9, 0, 0));
+        
+        JLabel lblElmo = new JLabel("");
+        lblElmo.setIcon(new ImageIcon(Juego_sudoku.class.getResource("/Imagenes/bf49097a-5a54-4930-87f9-e6368b119736_output.png")));
+        lblElmo.setBounds(9, 81, 200, 500);
+        lblElmo.setBorder(new LineBorder(Color.yellow, 5));
+        contentPane.add(lblElmo);
+        lblElmo.setVisible(false);
+        
+        JLabel lblNick = new JLabel("");
+        lblNick.setIcon(new ImageIcon(Juego_sudoku.class.getResource("/Imagenes/nick_tablero_output.png")));
+        lblNick.setBorder(new LineBorder(Color.yellow, 5));
+        lblNick.setBounds(868, 81, 200, 500);
+        contentPane.add(lblNick);
+        lblNick.setVisible(false);
+        
+                JButton btnVerificar = new JButton("Verificar");
+                btnVerificar.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        verificarSudoku();
+                    }
+                });
+                btnVerificar.setBounds(470, 677, 150, 35);
+                contentPane.add(btnVerificar);
+        
+        JLabel lblTituloDificil = new JLabel("MODO DIFICIL");
+        lblTituloDificil.setForeground(new Color(255, 255, 255));
+        lblTituloDificil.setFont(new Font("Impact", Font.BOLD, 45));
+        lblTituloDificil.setBounds(432, 0, 275, 50);
+        contentPane.add(lblTituloDificil);
+        lblTituloDificil.setVisible(false);
+        
+        JLabel lblFondoDificil = new JLabel("");
+        lblFondoDificil.setIcon(new ImageIcon(Juego_sudoku.class.getResource("/Imagenes/5yE_output.gif")));
+        lblFondoDificil.setBounds(0, 0, 1089, 825);
+        contentPane.add(lblFondoDificil);
+        lblFondoDificil.setVisible(false);
 
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
@@ -99,7 +139,7 @@ public class Juego_sudoku extends JDialog {
                 if (j % 3 == 0)
                     izq = 3;
                 if ((j + 1) % 3 == 0)
-                    dech = 3;
+                    dech = 3; 
                 casilla.setBorder(BorderFactory.createMatteBorder(arriba, izq, abajo, dech, Color.black));
                 casilla.setBackground(Color.WHITE);
                 panelJuego.add(casilla);
@@ -119,21 +159,19 @@ public class Juego_sudoku extends JDialog {
             case 3:
                 generarTableroDificil();
                 System.out.println("dificil");
+                lblNick.setVisible(true);
+                lblFondoDificil.setVisible(true);
+                lblElmo.setVisible(true);
+                lblTituloDificil.setVisible(true);
+                panelJuego.setBorder(new LineBorder(Color.orange, 10));
                 break;
         }
 
-        JButton btnVerificar = new JButton("Verificar");
-        btnVerificar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                verificarSudoku();
-            }
-        });
-        btnVerificar.setBounds(470, 677, 150, 35);
-        contentPane.add(btnVerificar);
+
     }
 
     public void generarTableroFacil() {
-        generarTablero(2);
+        generarTablero(30);
     }
 
     public void generarTableroMedio() {
@@ -164,6 +202,9 @@ public class Juego_sudoku extends JDialog {
                 tablero[i][j].setText(String.valueOf(tableroResuelto[i][j]));
 
                 if (tableroResuelto[i][j] != 0) {
+                	Font font = new Font("Arial", Font.PLAIN, 25);
+                    tablero[i][j].setFont(font);
+                	tablero[i][j].setForeground(Color.black);
                     tablero[i][j].setEditable(false);
                 }
             }
@@ -175,35 +216,25 @@ public class Juego_sudoku extends JDialog {
                 fila = rand_celdas.nextInt(9);
                 columna = rand_celdas.nextInt(9);
             } while (tablero[fila][columna].getText().equals(""));
-
             tablero[fila][columna].setText("");
-
+            tablero[fila][columna].setForeground(Color.red);
             tablero[fila][columna].setEditable(true);
+            
         }
     }
 
     private void verificarSudoku() {
-        if (todasCasillasLlenas() && sudokuValido()) {
+        if (sudokuValido()) {
             mensajeVictoria();
         } else {
-            JOptionPane.showMessageDialog(this, "El Sudoku no es válido. ¡Sigue intentándolo!");
+            JOptionPane.showMessageDialog(this, "ERROR, el sudoku es erroneo. ¡Sigue intentándolo! :D");
         }
     }
 
     private void mensajeVictoria() {
-        JOptionPane.showMessageDialog(this, "¡Felicidades! Has resuelto el Sudoku.", getTitle(), getDefaultCloseOperation());
+        JOptionPane.showMessageDialog(this, "¡Felicidades! Has acabado el Sudoku. >:D ", getTitle(), getDefaultCloseOperation());
     }
 
-    private boolean todasCasillasLlenas() {
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                if (tablero[i][j].getText().isEmpty()) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
 
     private boolean sudokuValido() {
         // Verificar filas
@@ -214,7 +245,7 @@ public class Juego_sudoku extends JDialog {
                 if (!valor.isEmpty() && !existentes[Integer.parseInt(valor) - 	1]) {
                     existentes[Integer.parseInt(valor) - 1] = true;
                 } else {
-                    return false; // Número duplicado en la fila
+                    return false; // devuelvo que el número está duplicado en la fila
                 }
             }
         }
@@ -227,7 +258,7 @@ public class Juego_sudoku extends JDialog {
                 if (!valor.isEmpty() && !existentes[Integer.parseInt(valor) - 1]) {
                     existentes[Integer.parseInt(valor) - 1] = true;
                 } else {
-                    return false; // Número duplicado en la columna
+                    return false; // devuelvo que el número está duplicado en la columna
                 }
             }
         }
@@ -241,12 +272,12 @@ public class Juego_sudoku extends JDialog {
                     if (!valor.isEmpty() && !existentes[Integer.parseInt(valor) - 1]) {
                         existentes[Integer.parseInt(valor) - 1] = true;
                     } else {
-                        return false; // Número duplicado en el bloque
+                        return false; // devuelvo que el número está duplicado en el bloque
                     }
                 }
             }
         }
 
-        return true; // Sudoku válido
+        return true;
     }
 }
