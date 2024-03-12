@@ -46,10 +46,12 @@ public class Menu_principal extends JFrame {
         contentPane.setLayout(null);
 
         JPanel panel_1 = new JPanel();
-        panel_1.setBounds(137, 126, 95, 22);
+        panel_1.setBorder(null);
+        panel_1.setBounds(137, 177, 95, 22);
         contentPane.add(panel_1);
 
         JLabel lblNewLabel_2 = new JLabel("Elegir dificultad: ");
+        lblNewLabel_2.setFont(new Font("Yu Gothic", Font.PLAIN, 11));
         panel_1.add(lblNewLabel_2);
         lblNewLabel_2.setForeground(Color.RED);
 
@@ -66,12 +68,18 @@ public class Menu_principal extends JFrame {
         lblNewLabel.setFont(new Font("Tahoma", Font.ITALIC, 27));
 
         JComboBox comboBox = new JComboBox();
+        comboBox.setBackground(new Color(135, 206, 250));
+        comboBox.setFont(new Font("Verdana", Font.BOLD, 14));
         comboBox.setModel(new DefaultComboBoxModel(new String[] {"FACIL", "MEDIO", "DIFICIL"}));
         comboBox.setMaximumRowCount(3);
-        comboBox.setBounds(233, 126, 89, 22);
+        comboBox.setBounds(233, 177, 89, 22);
         contentPane.add(comboBox);
 
         JButton btnNewButton = new JButton("Empezar");
+        btnNewButton.setBorder(new LineBorder(new Color(0, 0, 128), 3, true));
+        btnNewButton.setFont(new Font("Segoe UI Symbol", Font.BOLD, 16));
+        btnNewButton.setForeground(new Color(0, 0, 0));
+        btnNewButton.setBackground(new Color(95, 158, 160));
         btnNewButton.setFocusable(false);
         btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -96,7 +104,7 @@ public class Menu_principal extends JFrame {
                 juego_sudoku.iniciarJuego();
             }
         });
-        btnNewButton.setBounds(179, 81, 89, 23);
+        btnNewButton.setBounds(179, 104, 104, 35);
         contentPane.add(btnNewButton);
 
         JLabel lblFondoPrincipal = new JLabel("");

@@ -67,7 +67,7 @@ public class Juego_sudoku extends JDialog {
 
         JPanel panelJuego = new JPanel();
         panelJuego.setBackground(new Color(224, 255, 255));
-        panelJuego.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+        panelJuego.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
         panelJuego.setBorder(new LineBorder(Color.CYAN, 10));
         panelJuego.setBounds(219, 47, 641, 589);
         contentPane.add(panelJuego);
@@ -75,7 +75,7 @@ public class Juego_sudoku extends JDialog {
         
         JLabel lblElmo = new JLabel("");
         lblElmo.setIcon(new ImageIcon(Juego_sudoku.class.getResource("/Imagenes/bf49097a-5a54-4930-87f9-e6368b119736_output.png")));
-        lblElmo.setBounds(9, 81, 200, 500);
+        lblElmo.setBounds(9, 122, 200, 500);
         lblElmo.setBorder(new LineBorder(Color.yellow, 5));
         contentPane.add(lblElmo);
         lblElmo.setVisible(false);
@@ -83,11 +83,15 @@ public class Juego_sudoku extends JDialog {
         JLabel lblNick = new JLabel("");
         lblNick.setIcon(new ImageIcon(Juego_sudoku.class.getResource("/Imagenes/nick_tablero_output.png")));
         lblNick.setBorder(new LineBorder(Color.yellow, 5));
-        lblNick.setBounds(868, 81, 200, 500);
+        lblNick.setBounds(870, 122, 200, 500);
         contentPane.add(lblNick);
         lblNick.setVisible(false);
         
                 JButton btnVerificar = new JButton("Verificar");
+                btnVerificar.setBackground(new Color(102, 204, 102));
+                btnVerificar.setBorder(new LineBorder(new Color(50, 205, 50), 3, true));
+                btnVerificar.setFocusable(false);
+                btnVerificar.setFont(new Font("Yu Gothic UI", Font.BOLD, 20));
                 btnVerificar.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         verificarSudoku();
@@ -96,12 +100,58 @@ public class Juego_sudoku extends JDialog {
                 btnVerificar.setBounds(470, 677, 150, 35);
                 contentPane.add(btnVerificar);
         
-        JLabel lblTituloDificil = new JLabel("MODO DIFICIL");
-        lblTituloDificil.setForeground(new Color(255, 255, 255));
-        lblTituloDificil.setFont(new Font("Impact", Font.BOLD, 45));
-        lblTituloDificil.setBounds(432, 0, 275, 50);
-        contentPane.add(lblTituloDificil);
-        lblTituloDificil.setVisible(false);
+        JLabel lblTitulo = new JLabel("MODO DIFICIL");
+        lblTitulo.setForeground(new Color(255, 255, 255));
+        lblTitulo.setFont(new Font("Impact", Font.BOLD, 45));
+        lblTitulo.setBounds(432, 0, 275, 50);
+        contentPane.add(lblTitulo);
+        lblTitulo.setVisible(false);
+        
+        JLabel lblOjo = new JLabel("");
+        lblOjo.setBorder(new LineBorder(new Color(51, 51, 153), 4, true));
+        lblOjo.setIcon(new ImageIcon(Juego_sudoku.class.getResource("/Imagenes/c2f12796597a0ece9ac91cafcef5f0d9fcd16b18_output.gif")));
+        lblOjo.setBounds(9, 649, 200, 100);
+        contentPane.add(lblOjo);
+        
+        JLabel lblOjo_1 = new JLabel("");
+        lblOjo_1.setBorder(new LineBorder(new Color(51, 51, 153), 3, true));
+        lblOjo_1.setIcon(new ImageIcon(Juego_sudoku.class.getResource("/Imagenes/c2f12796597a0ece9ac91cafcef5f0d9fcd16b18_output.gif")));
+        lblOjo_1.setBounds(868, 649, 200, 100);
+        contentPane.add(lblOjo_1);
+        
+        JLabel lblOjo_1_1 = new JLabel("");
+        lblOjo_1_1.setBorder(new LineBorder(new Color(51, 51, 153), 4, true));
+        lblOjo_1_1.setIcon(new ImageIcon(Juego_sudoku.class.getResource("/Imagenes/c2f12796597a0ece9ac91cafcef5f0d9fcd16b18_output.gif")));
+        lblOjo_1_1.setBounds(870, 11, 200, 100);
+        contentPane.add(lblOjo_1_1);
+        
+        JLabel lblOjo_1_1_1 = new JLabel("");
+        lblOjo_1_1_1.setBorder(new LineBorder(new Color(51, 51, 153), 3, true));
+        lblOjo_1_1_1.setIcon(new ImageIcon(Juego_sudoku.class.getResource("/Imagenes/c2f12796597a0ece9ac91cafcef5f0d9fcd16b18_output.gif")));
+        lblOjo_1_1_1.setBounds(9, 11, 200, 100);
+        contentPane.add(lblOjo_1_1_1);
+        
+        JButton btnNewButtonOjos = new JButton("Desactivar ojos");
+        btnNewButtonOjos.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		if (btnNewButtonOjos.getText() == "Activar ojos") {
+        			lblOjo.setVisible(true);
+            		lblOjo_1.setVisible(true);
+            		lblOjo_1_1.setVisible(true);
+            		lblOjo_1_1_1.setVisible(true);
+            		btnNewButtonOjos.setText("Desactivar ojos");
+        		}else {
+	        		lblOjo.setVisible(false);
+	        		lblOjo_1.setVisible(false);
+	        		lblOjo_1_1.setVisible(false);
+	        		lblOjo_1_1_1.setVisible(false);
+	        		btnNewButtonOjos.setText("Activar ojos");
+        		}
+        	
+        	}
+        });
+        btnNewButtonOjos.setBounds(480, 723, 135, 23);
+        contentPane.add(btnNewButtonOjos);
         
         JLabel lblFondoDificil = new JLabel("");
         lblFondoDificil.setIcon(new ImageIcon(Juego_sudoku.class.getResource("/Imagenes/5yE_output.gif")));
@@ -151,10 +201,23 @@ public class Juego_sudoku extends JDialog {
             case 1:
                 generarTableroFacil();
                 System.out.println("facil");
+                btnNewButtonOjos.setVisible(false);
+                lblTitulo.setVisible(true);
+                lblTitulo.setText("MODO FACIL");
+                lblOjo.setVisible(false);
+        		lblOjo_1.setVisible(false);
+        		lblOjo_1_1.setVisible(false);
+        		lblOjo_1_1_1.setVisible(false);
                 break;
             case 2:
                 generarTableroMedio();
                 System.out.println("medio");
+                lblTitulo.setVisible(true);
+                lblTitulo.setText("MODO MEDIO");
+                lblOjo.setVisible(true);
+        		lblOjo_1.setVisible(true);
+        		lblOjo_1_1.setVisible(true);
+        		lblOjo_1_1_1.setVisible(true);
                 break;
             case 3:
                 generarTableroDificil();
@@ -162,7 +225,7 @@ public class Juego_sudoku extends JDialog {
                 lblNick.setVisible(true);
                 lblFondoDificil.setVisible(true);
                 lblElmo.setVisible(true);
-                lblTituloDificil.setVisible(true);
+                lblTitulo.setVisible(true);
                 panelJuego.setBorder(new LineBorder(Color.orange, 10));
                 break;
         }
